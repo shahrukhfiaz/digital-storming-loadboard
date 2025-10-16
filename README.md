@@ -20,13 +20,13 @@ A cloud-based session management system with IP masking capabilities for DAT (Di
 ### One-Command Deployment
 ```bash
 # On your DigitalOcean droplet
-wget -qO- https://raw.githubusercontent.com/YOUR_USERNAME/digital-storming-loadboard/main/deploy-to-cloud.sh | bash -s YOUR_DROPLET_IP
+wget -qO- https://raw.githubusercontent.com/shahrukhfiaz/digital-storming-loadboard/main/deploy-to-cloud.sh | bash -s YOUR_DROPLET_IP
 ```
 
 ### Manual Deployment
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/digital-storming-loadboard.git
+git clone https://github.com/shahrukhfiaz/digital-storming-loadboard.git
 cd digital-storming-loadboard
 
 # Setup and start

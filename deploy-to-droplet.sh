@@ -7,11 +7,11 @@ echo "🚀 Digital Storming Loadboard - Droplet Setup"
 echo "============================================="
 
 DROPLET_IP=$1
-GITHUB_REPO="https://github.com/YOUR_USERNAME/digital-storming-loadboard.git"
+GITHUB_REPO="https://github.com/shahrukhfiaz/digital-storming-loadboard.git"
 
 if [ -z "$DROPLET_IP" ]; then
     echo "❌ Error: Droplet IP not provided"
-    echo "Usage: curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/digital-storming-loadboard/main/deploy-to-droplet.sh | bash -s YOUR_DROPLET_IP"
+    echo "Usage: curl -fsSL https://raw.githubusercontent.com/shahrukhfiaz/digital-storming-loadboard/main/deploy-to-droplet.sh | bash -s YOUR_DROPLET_IP"
     exit 1
 fi
 

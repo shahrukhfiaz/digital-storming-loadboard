@@ -15,7 +15,7 @@ if [ -z "$1" ]; then
 fi
 
 DROPLET_IP=$1
-GITHUB_REPO="https://github.com/YOUR_USERNAME/digital-storming-loadboard.git"
+GITHUB_REPO="https://github.com/shahrukhfiaz/digital-storming-loadboard.git"
 echo "🌐 Deploying to droplet: $DROPLET_IP"
 
 echo ""
@@ -26,7 +26,7 @@ echo "1. Connect to your droplet:"
 echo "   ssh root@$DROPLET_IP"
 echo ""
 echo "2. Run this command on the droplet:"
-echo "   curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/digital-storming-loadboard/main/deploy-to-droplet.sh | bash -s $DROPLET_IP"
+echo "   curl -fsSL https://raw.githubusercontent.com/shahrukhfiaz/digital-storming-loadboard/main/deploy-to-droplet.sh | bash -s $DROPLET_IP"
 echo ""
 echo "OR manually run these commands on the droplet:"
 echo ""
