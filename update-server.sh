@@ -71,9 +71,9 @@ if [ -f "$BACKUP_DIR/env.backup" ]; then
     print_success "Environment file restored"
 fi
 
-# Install dependencies
+# Install dependencies (including dev dependencies needed for build)
 print_status "Installing dependencies..."
-npm ci --only=production
+npm ci
 print_success "Dependencies installed"
 
 # Build application
