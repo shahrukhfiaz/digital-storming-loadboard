@@ -23,7 +23,7 @@ export const listUsersHandler = asyncHandler(async (req, res) => {
   const skip = req.query.skip ? Number(req.query.skip) : undefined;
   const take = req.query.take ? Number(req.query.take) : undefined;
   const result = await listUsers({ skip, take });
-  return res.status(200).json(result);
+  return res.status(200).json({ users: result.data, total: result.count });
 });
 
 export const createUserHandler = asyncHandler(async (req: AuthenticatedRequest, res) => {
