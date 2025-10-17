@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:4000/api/v1';
+const API_BASE = 'http://157.230.51.160:3000/api/v1';
 let authToken = localStorage.getItem('authToken');
 let currentUser = null;
 
@@ -68,7 +68,7 @@ function updateServerTime() {
 
 async function checkServerStatus() {
     try {
-        const response = await fetch('http://localhost:4000/healthz');
+        const response = await fetch('http://157.230.51.160:3000/healthz');
         if (response.ok) {
             updateStatus('Server Online', '#28a745');
         } else {
