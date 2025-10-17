@@ -20,7 +20,7 @@ JWT_REFRESH_EXPIRES_IN=7d
 BCRYPT_SALT_ROUNDS=12
 
 # Database (Keep your existing Neon database)
-DATABASE_URL=postgresql://neondb_owner:npg_TABxjYCk9c4i@ep-autumn-art-adolj885-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+DATABASE_URL=
 
 # Cloud Server Configuration
 CLOUD_SERVER_IP=YOUR_DROPLET_IP
@@ -40,8 +40,8 @@ OBJECT_STORAGE_REGION=nyc3
 # Session seeder (Optional - for future use)
 SEEDER_PLAYWRIGHT_WS_ENDPOINT=ws://localhost:9222
 SEEDER_API_TOKEN=replace_with_machine_token
-DAT_MASTER_USERNAME=ryanhawk@digitalstorming.com
-DAT_MASTER_PASSWORD=ALLrounder$5000
+DAT_MASTER_USERNAME=
+DAT_MASTER_PASSWORD=
 SESSION_BUNDLE_ENCRYPTION_KEY=base64encoded32bytekey
 
 # Proxy management (Optional)
