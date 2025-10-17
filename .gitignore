@@ -79,7 +79,7 @@ dist
 
 # Gatsby files
 .cache/
-public
+# public  # Commented out to allow admin panel files
 
 # Storybook build outputs
 .out
