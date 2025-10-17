@@ -61,14 +61,21 @@ export const deleteUserHandler = asyncHandler(async (req: AuthenticatedRequest, 
   if (!id) {
     throw new AppError('User id parameter is required', 400);
   }
-  await deleteUser(id);
+  
+  const user = await deleteUser(id);
   await recordAuditLog({
     actorId: req.user?.id,
     action: 'USER_DELETED',
     targetType: 'USER',
     targetId: id,
+    metadata: { deletedUser: user.email, deletedBy: req.user?.id },
   });
-  return res.status(204).send();
+  
+  return res.status(200).json({ 
+    message: 'User deleted successfully',
+    userId: id,
+    email: user.email 
+  });
 });
 
 // New endpoint for changing user password
@@ -109,8 +116,8 @@ export const toggleUserStatusHandler = asyncHandler(async (req: AuthenticatedReq
     throw new AppError('User id parameter is required', 400);
   }
   
-  if (!status || !['ACTIVE', 'INACTIVE', 'SUSPENDED', 'DISABLED'].includes(status)) {
-    throw new AppError('Valid status is required (ACTIVE, INACTIVE, SUSPENDED, DISABLED)', 400);
+  if (!status || !['ACTIVE', 'SUSPENDED', 'DISABLED'].includes(status)) {
+    throw new AppError('Valid status is required (ACTIVE, SUSPENDED, DISABLED)', 400);
   }
   
   const user = await updateUser(id, { status });

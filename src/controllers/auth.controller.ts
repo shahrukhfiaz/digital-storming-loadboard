@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { asyncHandler } from '../middleware/asyncHandler';
 import { login, refreshTokens } from '../services/auth.service';
 import type { AuthenticatedRequest } from '../middleware/auth';
+import { prisma } from '../db/client';
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -24,7 +25,8 @@ export const loginHandler = asyncHandler(async (req, res) => {
       role: user.role,
       status: user.status,
     },
-    tokens,
+    accessToken: tokens.accessToken,
+    refreshToken: tokens.refreshToken,
   });
 });
 
@@ -35,5 +37,25 @@ export const refreshHandler = asyncHandler(async (req, res) => {
 });
 
 export const meHandler = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
-  return res.status(200).json({ user: req.user });
+  if (!req.user?.id) {
+    return res.status(401).json({ message: 'User not authenticated' });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: req.user.id },
+    select: {
+      id: true,
+      email: true,
+      role: true,
+      status: true,
+      lastLoginAt: true,
+      createdAt: true,
+    },
+  });
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  return res.status(200).json(user);
 });

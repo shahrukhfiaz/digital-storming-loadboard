@@ -117,12 +117,14 @@ export async function updateUser(id: string, input: UpdateUserInput) {
   });
 }
 
-export async function deleteUser(id: string): Promise<void> {
+export async function deleteUser(id: string): Promise<{ id: string; email: string }> {
   const user = await prisma.user.findUnique({ where: { id } });
   if (!user) {
     throw new AppError('User not found', 404);
   }
 
   await prisma.user.delete({ where: { id } });
+  
+  return { id: user.id, email: user.email };
 }
 
