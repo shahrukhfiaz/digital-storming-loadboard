@@ -25,8 +25,10 @@ export const loginHandler = asyncHandler(async (req, res) => {
       role: user.role,
       status: user.status,
     },
-    accessToken: tokens.accessToken,
-    refreshToken: tokens.refreshToken,
+    tokens: {
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+    },
   });
 });
 
