@@ -3,7 +3,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import path from 'path';
-import { apiRouter } from './routes';
+import apiRouter from './routes';
 import { errorHandler } from './middleware/errorHandler';
 import { env } from './config/env';
 import { logger } from './config/logger';

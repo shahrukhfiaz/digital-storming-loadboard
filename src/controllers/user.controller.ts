@@ -70,3 +70,92 @@ export const deleteUserHandler = asyncHandler(async (req: AuthenticatedRequest, 
   });
   return res.status(204).send();
 });
+
+// New endpoint for changing user password
+export const changeUserPasswordHandler = asyncHandler(async (req: AuthenticatedRequest, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  
+  if (!id) {
+    throw new AppError('User id parameter is required', 400);
+  }
+  
+  if (!password || password.length < 6) {
+    throw new AppError('Password must be at least 6 characters long', 400);
+  }
+  
+  const user = await updateUser(id, { password });
+  await recordAuditLog({
+    actorId: req.user?.id,
+    action: 'USER_PASSWORD_CHANGED',
+    targetType: 'USER',
+    targetId: id,
+    metadata: { changedBy: req.user?.id },
+  });
+  
+  return res.status(200).json({ 
+    message: 'Password updated successfully',
+    userId: user.id,
+    email: user.email 
+  });
+});
+
+// New endpoint for toggling user status
+export const toggleUserStatusHandler = asyncHandler(async (req: AuthenticatedRequest, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  
+  if (!id) {
+    throw new AppError('User id parameter is required', 400);
+  }
+  
+  if (!status || !['ACTIVE', 'INACTIVE', 'SUSPENDED', 'DISABLED'].includes(status)) {
+    throw new AppError('Valid status is required (ACTIVE, INACTIVE, SUSPENDED, DISABLED)', 400);
+  }
+  
+  const user = await updateUser(id, { status });
+  await recordAuditLog({
+    actorId: req.user?.id,
+    action: 'USER_STATUS_CHANGED',
+    targetType: 'USER',
+    targetId: id,
+    metadata: { newStatus: status, changedBy: req.user?.id },
+  });
+  
+  return res.status(200).json({ 
+    message: 'User status updated successfully',
+    userId: user.id,
+    email: user.email,
+    status: user.status 
+  });
+});
+
+// New endpoint for updating user role
+export const updateUserRoleHandler = asyncHandler(async (req: AuthenticatedRequest, res) => {
+  const { id } = req.params;
+  const { role } = req.body;
+  
+  if (!id) {
+    throw new AppError('User id parameter is required', 400);
+  }
+  
+  if (!role || !['SUPER_ADMIN', 'ADMIN', 'SUPPORT', 'USER'].includes(role)) {
+    throw new AppError('Valid role is required (SUPER_ADMIN, ADMIN, SUPPORT, USER)', 400);
+  }
+  
+  const user = await updateUser(id, { role });
+  await recordAuditLog({
+    actorId: req.user?.id,
+    action: 'USER_ROLE_CHANGED',
+    targetType: 'USER',
+    targetId: id,
+    metadata: { newRole: role, changedBy: req.user?.id },
+  });
+  
+  return res.status(200).json({ 
+    message: 'User role updated successfully',
+    userId: user.id,
+    email: user.email,
+    role: user.role 
+  });
+});
